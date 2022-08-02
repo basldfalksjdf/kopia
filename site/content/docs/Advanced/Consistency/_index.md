@@ -1,8 +1,10 @@
 ---
-title: "Repository Consistency and Repair"
-linkTitle: "Repository Consistency"
-weight: 20
+title: "Testing Validity of Snapshots and Repository Consistency"
+linkTitle: "Testing Validity of Snapshots and Repository Consistency"
+weight: 15
 ---
+
+> Having trouble with corrupted snapshots or repository? Read the guide on repairing corrupt snapshots or repositories.
 
 ## Repository Consistency
 
