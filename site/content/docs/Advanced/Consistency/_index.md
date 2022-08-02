@@ -4,7 +4,19 @@ linkTitle: "Testing Validity of Snapshots and Repository Consistency"
 weight: 15
 ---
 
-> Having trouble with corrupted snapshots or repository? Read the guide on repairing corrupt snapshots or repositories.
+Backing up data is great, but you also need to be able to restore that data when (if) the time arises. To ensure that your backed up data can be restored should you ever need to do so, Kopia has two main functions that enable you to verify the consistency/validity of your backed up files: [`kopia content verify`](../../reference/command-line/advanced/content-verify/) and [`kopia snapshot verify`](../../reference/command-line/advanced/snapshot-verify).
+
+* `kopia content verify` checks that the content manager index structures are correct and that every index entry is backed by an existing file. You can also run this command with the option `--download-percent`. This option tells Kopia to download blobs and ensure that they can be decrypted. You must specify a value here, such as `--download-percent=100`, where the value tells Kopia how much of your repository to download when performing its test. For example, `kopia content verify --download-percent=100` tells Kopia to download and check your whole repository. If you pick a number less than 100, then Kopia randomly picks files to download.
+
+kopia content verify --download-percent=10 - same as above, but will download 10% of random contents and ensure they can be decrypted properly
+
+kopia snapshot verify - will ensure that directory structures in the repository are consistent by walking all files and directories in snapshots from their roots and performing equivalent of kopia content verify on all contents required to restore each file, but does not download the file
+
+kopia snapshot verify --verify-files-percent 10 - same as #3 but will also download random 10% of all files, this ensures that decryption and decompression is correct.
+
+You can run these consistency checks are frequently as you like (e.g., once a month, once a year, etc.). Read the repository consistency help docs for more information.
+
+> Having trouble with corrupted snapshots or repository? Read the [guide on repairing corrupt snapshots or repositories](../repair/).
 
 ## Repository Consistency
 
